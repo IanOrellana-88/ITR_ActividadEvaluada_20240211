@@ -59,7 +59,7 @@ registerStudentsController.verifyCode = async (req, res) => {
         const { verificationCodeRequest } = req.body;
         const token = req.cookies.registrationCookie;
         
-        if (!token) return res.status(400).json({ message: "Token expired or not found" });
+       // if (!token) return res.status(400).json({ message: "Token expired or not found" });
  
         const decoded = jsonwebtoken.verify(token, config.JWT.secret);
         const { randomNumber: storedCode, name, lastName, email, password } = decoded;
