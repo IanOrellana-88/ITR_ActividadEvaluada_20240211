@@ -18,8 +18,8 @@ registerStudentsController.registerStudent = async (req, res) => {
         const randomNumber = crypto.randomBytes(3).toString("hex");
  
         const token = jsonwebtoken.sign(
-            { randomNumber, name, lastName, birthdate, email, password: passwordHashed, isVerified },
-            config.JWT.secret,
+            { randomNumber, name, lastName, email, password: passwordHashed, isVerified },
+           config.JWT_secret_key,
             { expiresIn: "15m" }
         );
  
@@ -57,12 +57,12 @@ registerStudentsController.registerStudent = async (req, res) => {
 registerStudentsController.verifyCode = async (req, res) => {
     try {
         const { verificationCodeRequest } = req.body;
-        const token = req.cookies.registrarionCookie;
+        const token = req.cookies.registrationCookie;
         
         if (!token) return res.status(400).json({ message: "Token expired or not found" });
  
         const decoded = jsonwebtoken.verify(token, config.JWT.secret);
-        const { randomNumber: storedCode, name, lastName, email, birthdate, password } = decoded;
+        const { randomNumber: storedCode, name, lastName, email, password } = decoded;
  
         if (verificationCodeRequest !== storedCode) {
             return res.status(400).json({ message: "Invalid verification code" });
@@ -72,7 +72,6 @@ registerStudentsController.verifyCode = async (req, res) => {
             name,
             lastName,
             email,
-            birthdate,
             password,
             isVerified: true,
         });
