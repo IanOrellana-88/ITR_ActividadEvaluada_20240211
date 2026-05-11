@@ -3,7 +3,7 @@ import registerStudentsController from "../controllers/registerStudentsControlle
 
 const router = express.Router();
 
-router.route("/").post(registerStudentsController.register);
+router.route("/").post(registerStudentsController.registerStudent);
 router.route("/verifyCode").post(registerStudentsController.verifyCode);
 
 export default router;
