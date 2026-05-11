@@ -3,7 +3,7 @@ import crypto from "crypto";
 import jsonwebtoken from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
 import studentsModel from "../models/students.js";
-import { config } from "../config.js";
+import { config } from "../../config.js";
  
 const registerStudentsController = {};
  
@@ -52,7 +52,7 @@ registerStudentsController.registerStudent = async (req, res) => {
         console.log("error" + error);
         return res.status(500).json({ message: "Internal server error" });
     }
-}; // <--- Falta esta llave para cerrar registerStudent
+}; 
  
 registerStudentsController.verifyCode = async (req, res) => {
     try {

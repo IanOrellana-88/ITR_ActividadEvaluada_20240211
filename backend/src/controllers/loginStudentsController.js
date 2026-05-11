@@ -1,7 +1,7 @@
 import studentsModel from "../models/students.js";
 import jsonwebtoken from "jsonwebtoken";
 import brcypt from "bcryptjs";
-import { config } from "../config.js";
+import { config } from "../../config.js";
 
 const loginStudentsController = {};
 
@@ -23,7 +23,7 @@ loginStudentsController.login = async (req, res) => {
             return res.status(403).json({ message: "Account locked. Try again later" });
         }
 
-        const isMatch = await brcypt.compare(password, studentFound.password);
+        const isMatch = await bcrypt.compare(password, studentFound.password);
 
         if (!isMatch) {
             studentFound.loginAttemps = (studentFound.loginAttemps || 0) + 1;
